@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-dqwj1%obc8oo53j_^pcnif0j%-b+^6=8s%riq#$q(g-z)ia%q+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#Modificar debug
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
 
@@ -120,6 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedMainfestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -151,3 +156,10 @@ DATABASES = {
 PAYPAL_CLIENT_ID = 'Aa28SzURKgSGhzc0CrktDLYut44zVSm8B3lxz5CXjvTSzk9ALowo5UExrVZ_rVn3sn6TosUQLG0xR7Kl'
 PAYPAL_CLIENT_SECRET = 'EJUfiq1bdkrF9U1Q3N4_F5DsjiGYaB0xKnqebE_-sVAq2Sqoylr79DMgtjSTDmUaiJDSsQVcqba2d2HG'
 PAYPAL_MODE = 'sandbox'  # 'sandbox' para pruebas, 'live' para producción
+
+#CONFIGURACION RENDER 
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+
