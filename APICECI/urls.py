@@ -27,6 +27,6 @@ urlpatterns = [
     path('InserUser/',InserUser.registro, name='insert_user'),
     path('iniciar_sesion/', views.iniciar_sesion, name='iniciar_sesion'),
     path('', views.chart_view, name='chart_view'),
-    path('producto/', views.ProductView, name='products'),
+   # path('producto/', views.ProductView, name='products'),
     
 ]

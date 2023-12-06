@@ -26,8 +26,6 @@ from .models import Product
 
 # views.py
 from django.shortcuts import render
-from paypalrestsdk import Payment
-from django.urls import reverse
 from django.http import HttpResponseRedirect
 
 class Variable(APIView):
@@ -125,5 +123,3 @@ def chart_view(request):
     }
 )
 
-
- 
