@@ -27,6 +27,7 @@ urlpatterns = [
     path('InserUser/',InserUser.registro, name='insert_user'),
     path('iniciar_sesion/', views.iniciar_sesion, name='iniciar_sesion'),
     path('', views.chart_view, name='chart_view'),
+    path('inicio/', IndexU.as_view(), name='inicio'),
    # path('producto/', views.ProductView, name='products'),
     
 ]

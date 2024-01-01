@@ -123,3 +123,10 @@ def chart_view(request):
     }
 )
 
+
+#--------------------------------VISTA USUARIO------------------------
+class IndexU(APIView):
+    template_name="user/index.html"
+    def get(self,request):
+        return render(request,self.template_name)
+    
