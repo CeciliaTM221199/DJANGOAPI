@@ -145,7 +145,7 @@ DEFAULT_FROM_EMAIL = 'ceciliatm221199@gmail.com'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'diprodem',
+        'NAME': 'diprode',
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': 'localhost',  # O la dirección de tu servidor PostgreSQL

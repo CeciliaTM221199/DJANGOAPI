@@ -28,6 +28,9 @@ urlpatterns = [
     path('iniciar_sesion/', views.iniciar_sesion, name='iniciar_sesion'),
     path('', views.chart_view, name='chart_view'),
     path('inicio/', IndexU.as_view(), name='inicio'),
-   # path('producto/', views.ProductView, name='products'),
+    path('producto/', views.ProductView, name='products'),
+    #path('productos/<str:categoria>/', productos_por_categoria, name='productos_por_categoria'),
+    path('filtrar_productos/', filtrar_productos, name='filtrar_productos'),
+    path('filtrar_productosc/', filtrar_productosc, name='filtrar_productosc'),
     
 ]

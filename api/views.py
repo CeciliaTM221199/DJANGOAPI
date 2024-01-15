@@ -10,9 +10,6 @@ from django.contrib import messages
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import render, redirect
-
-from .models import RegistroU
-
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
@@ -20,13 +17,9 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.contrib import messages
-from .forms import RegistroForm
+from .forms import *
+from .models import *
 
-from .models import Product
-
-# views.py
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
 
 class Variable(APIView):
     template_name="ejemplo1.html"
@@ -92,7 +85,7 @@ class InserUser(HttpRequest):
             form = RegistroForm()
         return render(request, 'iniciar_sesion', {'form': form})
 
-    
+
 
 def iniciar_sesion(request):
     if request.method == 'POST':
@@ -126,7 +119,45 @@ def chart_view(request):
 
 #--------------------------------VISTA USUARIO------------------------
 class IndexU(APIView):
-    template_name="user/index.html"
-    def get(self,request):
-        return render(request,self.template_name)
-    
+    template_name = "user/index.html"
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def ProductView(self, request):
+        productos_get = Producto.objects.all()
+        return render(request, 'user/index.html', {'productos_get': productos_get})
+
+#-------------------------CATALOGO DE PRODUCTOS----------------------
+def ProductView(request):
+    productos_get = Producto.objects.all()
+    return render(request, 'user/productos.html', {'productos_get': productos_get})
+
+def ProductViewi(request):
+    productos_get = Producto.objects.all()
+    return render(request, 'user/index.html', {'productos_get': productos_get})
+
+
+def filtrar_productos(request):
+    if 'q' in request.GET:
+        query = request.GET['q']
+        productos_filtrados = Producto.objects.filter(nombre__icontains=query)
+    else:
+        productos_filtrados = Producto.objects.all()
+
+    return render(request, 'user/productos.html', {'productos_get': productos_filtrados})
+
+def filtrar_productosc(request):
+    # Obtener todas las categorías distintas de la base de datos
+    categorias = Producto.objects.values_list('categoria', flat=True).distinct()
+
+    # Obtener la categoría seleccionada
+    categoria_seleccionada = request.GET.get('categoria', '')
+
+    # Filtrar productos por categoría si se ha seleccionado una
+    productos_filtrados = Producto.objects.all()
+
+    if categoria_seleccionada:
+        productos_filtrados = productos_filtrados.filter(categoria=categoria_seleccionada)
+
+    return render(request, 'user/productos.html', {'productos_get': productos_filtrados, 'categorias': categorias, 'categoria_seleccionada': categoria_seleccionada})
